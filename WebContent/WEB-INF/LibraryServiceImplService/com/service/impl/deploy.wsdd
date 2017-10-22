@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from LibraryServiceImplService WSDL service -->
+
+  <service name="LibraryServiceImpl" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://impl.service.com"/>
+      <parameter name="wsdlServiceElement" value="LibraryServiceImplService"/>
+      <parameter name="schemaQualified" value="http://exception.service.com,http://bo.service.com,http://dao.service.com,http://impl.service.com"/>
+      <parameter name="wsdlServicePort" value="LibraryServiceImpl"/>
+      <parameter name="className" value="com.service.impl.LibraryServiceImpl"/>
+      <parameter name="wsdlPortType" value="LibraryServiceImpl"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://impl.service.com" xmlns:retNS="http://impl.service.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="registerUser" qname="operNS:registerUser" returnQName="retNS:registerUserReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://impl.service.com" xmlns:tns="http://bo.service.com" qname="pns:user" type="tns:UserRegistrationInfoBO"/>
+        <fault xmlns:fns="http://impl.service.com" xmlns:tns="http://exception.service.com" name="LibraryServiceException" qname="fns:fault" class="com.service.exception.LibraryServiceException" type="tns:LibraryServiceException"/>
+      </operation>
+      <operation xmlns:operNS="http://impl.service.com" xmlns:retNS="http://impl.service.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="isValidUser" qname="operNS:isValidUser" returnQName="retNS:isValidUserReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://impl.service.com" xmlns:tns="http://bo.service.com" qname="pns:loginInfo" type="tns:LoginInfoBO"/>
+        <fault xmlns:fns="http://impl.service.com" xmlns:tns="http://exception.service.com" name="LibraryServiceException" qname="fns:fault" class="com.service.exception.LibraryServiceException" type="tns:LibraryServiceException"/>
+      </operation>
+      <operation xmlns:operNS="http://impl.service.com" xmlns:retNS="http://impl.service.com" xmlns:rtns="http://bo.service.com" name="getUserDetails" qname="operNS:getUserDetails" returnQName="retNS:getUserDetailsReturn" returnType="rtns:UserInfoBO" soapAction="">
+        <parameter xmlns:pns="http://impl.service.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:userId" type="tns:int"/>
+        <fault xmlns:fns="http://impl.service.com" xmlns:tns="http://exception.service.com" name="LibraryServiceException" qname="fns:fault" class="com.service.exception.LibraryServiceException" type="tns:LibraryServiceException"/>
+      </operation>
+      <parameter name="allowedMethods" value="getUserDetails registerUser isValidUser"/>
+
+      <typeMapping xmlns:ns="http://exception.service.com" qname="ns:LibraryServiceException" type="java:com.service.exception.LibraryServiceException" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://bo.service.com" qname="ns:UserRegistrationInfoBO" type="java:com.service.bo.UserRegistrationInfoBO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://bo.service.com" qname="ns:LoginInfoBO" type="java:com.service.bo.LoginInfoBO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://impl.service.com" xmlns:cmp-ns="http://dao.service.com" qname="ns:ArrayOf_tns3_BookDAO" type="java:com.service.dao.BookDAO[]" innerType="cmp-ns:BookDAO" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://bo.service.com" qname="ns:UserInfoBO" type="java:com.service.bo.UserInfoBO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://dao.service.com" qname="ns:BookDAO" type="java:com.service.dao.BookDAO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

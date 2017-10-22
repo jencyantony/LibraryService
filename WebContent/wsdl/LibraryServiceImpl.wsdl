@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://impl.service.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://impl.service.com" xmlns:intf="http://impl.service.com" xmlns:tns1="http://bo.service.com" xmlns:tns2="http://exception.service.com" xmlns:tns3="http://dao.service.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://impl.service.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://dao.service.com"/>
+   <import namespace="http://bo.service.com"/>
+   <import namespace="http://exception.service.com"/>
+   <element name="registerUser">
+    <complexType>
+     <sequence>
+      <element name="user" type="tns1:UserRegistrationInfoBO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="registerUserResponse">
+    <complexType>
+     <sequence>
+      <element name="registerUserReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="fault" type="tns2:LibraryServiceException"/>
+   <element name="isValidUser">
+    <complexType>
+     <sequence>
+      <element name="loginInfo" type="tns1:LoginInfoBO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="isValidUserResponse">
+    <complexType>
+     <sequence>
+      <element name="isValidUserReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getUserDetails">
+    <complexType>
+     <sequence>
+      <element name="userId" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getUserDetailsResponse">
+    <complexType>
+     <sequence>
+      <element name="getUserDetailsReturn" type="tns1:UserInfoBO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_tns3_BookDAO">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns3:BookDAO"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://bo.service.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://impl.service.com"/>
+   <import namespace="http://dao.service.com"/>
+   <import namespace="http://exception.service.com"/>
+   <complexType name="UserRegistrationInfoBO">
+    <sequence>
+     <element name="department" nillable="true" type="xsd:string"/>
+     <element name="firstname" nillable="true" type="xsd:string"/>
+     <element name="id" type="xsd:int"/>
+     <element name="lastname" nillable="true" type="xsd:string"/>
+     <element name="password" nillable="true" type="xsd:string"/>
+     <element name="role" nillable="true" type="xsd:string"/>
+     <element name="username" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="LoginInfoBO">
+    <sequence>
+     <element name="password" nillable="true" type="xsd:string"/>
+     <element name="username" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="UserInfoBO">
+    <sequence>
+     <element name="booksBorrowed" nillable="true" type="impl:ArrayOf_tns3_BookDAO"/>
+     <element name="department" nillable="true" type="xsd:string"/>
+     <element name="firstname" nillable="true" type="xsd:string"/>
+     <element name="id" type="xsd:int"/>
+     <element name="lastname" nillable="true" type="xsd:string"/>
+     <element name="role" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://exception.service.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://impl.service.com"/>
+   <import namespace="http://dao.service.com"/>
+   <import namespace="http://bo.service.com"/>
+   <complexType name="LibraryServiceException">
+    <sequence/>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://dao.service.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://impl.service.com"/>
+   <import namespace="http://bo.service.com"/>
+   <import namespace="http://exception.service.com"/>
+   <complexType name="BookDAO">
+    <sequence>
+     <element name="author" nillable="true" type="xsd:string"/>
+     <element name="borrowedBy" type="xsd:int"/>
+     <element name="id" type="xsd:int"/>
+     <element name="title" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="isValidUserResponse">
+
+      <wsdl:part element="impl:isValidUserResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="registerUserResponse">
+
+      <wsdl:part element="impl:registerUserResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserDetailsResponse">
+
+      <wsdl:part element="impl:getUserDetailsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="registerUserRequest">
+
+      <wsdl:part element="impl:registerUser" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserDetailsRequest">
+
+      <wsdl:part element="impl:getUserDetails" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="isValidUserRequest">
+
+      <wsdl:part element="impl:isValidUser" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="LibraryServiceException">
+
+      <wsdl:part element="impl:fault" name="fault">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="LibraryServiceImpl">
+
+      <wsdl:operation name="registerUser">
+
+         <wsdl:input message="impl:registerUserRequest" name="registerUserRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:registerUserResponse" name="registerUserResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:LibraryServiceException" name="LibraryServiceException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="isValidUser">
+
+         <wsdl:input message="impl:isValidUserRequest" name="isValidUserRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:isValidUserResponse" name="isValidUserResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:LibraryServiceException" name="LibraryServiceException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserDetails">
+
+         <wsdl:input message="impl:getUserDetailsRequest" name="getUserDetailsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getUserDetailsResponse" name="getUserDetailsResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:LibraryServiceException" name="LibraryServiceException">
+
+       </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="LibraryServiceImplSoapBinding" type="impl:LibraryServiceImpl">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="registerUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="registerUserRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="registerUserResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="LibraryServiceException">
+
+            <wsdlsoap:fault name="LibraryServiceException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="isValidUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="isValidUserRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="isValidUserResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="LibraryServiceException">
+
+            <wsdlsoap:fault name="LibraryServiceException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserDetails">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getUserDetailsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getUserDetailsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="LibraryServiceException">
+
+            <wsdlsoap:fault name="LibraryServiceException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="LibraryServiceImplService">
+
+      <wsdl:port binding="impl:LibraryServiceImplSoapBinding" name="LibraryServiceImpl">
+
+         <wsdlsoap:address location="http://localhost:8083/LibraryService/services/LibraryServiceImpl"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
